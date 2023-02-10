@@ -237,9 +237,9 @@ Transform:
   m_Children:
   - {fileID: 1125374377}
   - {fileID: 1139065689}
-  - {fileID: 1231948268}
-  - {fileID: 1041743996}
   - {fileID: 553744580}
+  - {fileID: 1041743996}
+  - {fileID: 1231948268}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 553744583}
   - component: {fileID: 553744584}
   m_Layer: 0
-  m_Name: 5
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 424449954}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &553744581
 SpriteRenderer:
@@ -995,7 +995,7 @@ GameObject:
   - component: {fileID: 1229207183}
   - component: {fileID: 1229207184}
   m_Layer: 0
-  m_Name: 1613747555_26-p-zadnii-fon-v-2d-27
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1081,7 +1081,7 @@ GameObject:
   - component: {fileID: 1231948270}
   - component: {fileID: 1231948272}
   m_Layer: 0
-  m_Name: 3
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1100,7 +1100,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 424449954}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1231948269
 SpriteRenderer:
