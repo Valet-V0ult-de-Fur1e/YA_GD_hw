@@ -9,6 +9,14 @@ public class Slide : MonoBehaviour
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private float _speed;
+    [SerializeField] private float buttonTime = 0.3f;
+    [SerializeField] private float jumpForce = 20;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravityScale = 5;
+    [SerializeField] private float _connectDelay = 3f;
+    
+    private float _connectTime;
+    private float velocity;
 
     private Rigidbody2D _rb2d;
 
@@ -39,10 +47,27 @@ public class Slide : MonoBehaviour
         Vector2 alongSurface = Vector2.Perpendicular(_groundNormal);
 
         _targetVelocity = alongSurface * _speed;
+
+        velocity += gravity * gravityScale * Time.deltaTime;
+        if (velocity < 0)
+        {
+            velocity = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!(_connectTime + _connectDelay < Time.time))
+                return;
+
+            _connectTime = Time.time;
+            velocity = jumpForce;
+
+        }
+        transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
     }
 
     void FixedUpdate()
     {
+
         if (_velocity.y > 0)
         {
             _speed = 0;
@@ -58,29 +83,26 @@ public class Slide : MonoBehaviour
         {
             _speed = 0;
         }
+
         _velocity += _gravityModifier * Physics2D.gravity * Time.deltaTime;
         _velocity.x = _targetVelocity.x;
-        //_x = _groundNormal.x;
         _grounded = false;
         Vector2 deltaPosition = _velocity * Time.deltaTime;
         Vector2 moveAlongGround = new Vector2(_groundNormal.y, -_groundNormal.x);
         Vector2 move = moveAlongGround * deltaPosition.x;
-        if (move.y <= 0) 
-        { 
-            Movement(move, false);
+        Movement(move, false);
 
-            move = Vector2.up * deltaPosition.y;
+        move = Vector2.up * deltaPosition.y;
 
-            Movement(move, true);
-        }
-        else
-        {
-            _speed = 0;
-        }
+        Movement(move, true);
         
     }
 
-    void Movement(Vector2 move, bool yMovement)
+    private void jump(Vector2 velocity, bool jump) 
+    {
+        
+    }
+    private void Movement(Vector2 move, bool yMovement)
     {
         float distance = move.magnitude;
 
