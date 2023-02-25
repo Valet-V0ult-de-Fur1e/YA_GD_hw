@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Slide : MonoBehaviour
 {
-    [SerializeField] private float _minGroundNormalY = .65f;
+    [SerializeField] private float _minGroundNormalY = .3f;
     [SerializeField] private float _gravityModifier = 1f;
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private LayerMask _layerMask;
@@ -43,20 +43,41 @@ public class Slide : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_velocity.y > 0)
+        {
+            _speed = 0;
+            _velocity.y = 0;
+        }
+        
+        if (_groundNormal.x != 0)
+        {
+            _speed = -Mathf.Sign(_groundNormal.x);
+        }
+
+        else
+        {
+            _speed = 0;
+        }
         _velocity += _gravityModifier * Physics2D.gravity * Time.deltaTime;
         _velocity.x = _targetVelocity.x;
-
+        //_x = _groundNormal.x;
         _grounded = false;
-
         Vector2 deltaPosition = _velocity * Time.deltaTime;
         Vector2 moveAlongGround = new Vector2(_groundNormal.y, -_groundNormal.x);
         Vector2 move = moveAlongGround * deltaPosition.x;
+        if (move.y <= 0) 
+        { 
+            Movement(move, false);
 
-        Movement(move, false);
+            move = Vector2.up * deltaPosition.y;
 
-        move = Vector2.up * deltaPosition.y;
-
-        Movement(move, true);
+            Movement(move, true);
+        }
+        else
+        {
+            _speed = 0;
+        }
+        
     }
 
     void Movement(Vector2 move, bool yMovement)
@@ -86,7 +107,6 @@ public class Slide : MonoBehaviour
                         currentNormal.x = 0;
                     }
                 }
-
                 float projection = Vector2.Dot(_velocity, currentNormal);
                 if (projection < 0)
                 {
