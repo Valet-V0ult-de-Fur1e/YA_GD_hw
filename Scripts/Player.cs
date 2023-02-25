@@ -5,25 +5,31 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody2D rb2D;
-    public float thrust = 20f;
-    public float start_force = 1500f;
+    private Rigidbody2D _rb2D;
+    [SerializeField] private float _thrust = 200f;
+    [SerializeField] private float _startForce = 300f;
 
-    void Start()
+    private void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
-        rb2D.AddForce(new Vector2(-start_force, 0));
+        _rb2D = GetComponent<Rigidbody2D>();
+        _rb2D.AddForce(new Vector2(-_startForce, 0));
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        {
             Destroy(GetComponent<HingeJoint2D>());
         }
-        if (Input.GetKeyDown(KeyCode.D)) {
-            rb2D.AddForce(new Vector2(thrust, 0));
+
+        if (Input.GetKeyDown(KeyCode.D)) 
+        {
+            _rb2D.AddForce(new Vector2(_thrust, 0));
         }
-        if (Input.GetKeyDown(KeyCode.A)) {
-            rb2D.AddForce(new Vector2(-thrust, 0));
+
+        if (Input.GetKeyDown(KeyCode.A)) 
+        {
+            _rb2D.AddForce(new Vector2(-_thrust, 0));
         }
     }
 }
